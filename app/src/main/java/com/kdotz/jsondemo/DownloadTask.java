@@ -1,6 +1,9 @@
 package com.kdotz.jsondemo;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,5 +43,17 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         }
 
         return "AsyncTask Done";
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            String weatherInfo = jsonObject.getString("weather");
+            Log.i("Weather content: ", weatherInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
