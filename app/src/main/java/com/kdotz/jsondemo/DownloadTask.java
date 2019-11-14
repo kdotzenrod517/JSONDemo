@@ -3,6 +3,7 @@ package com.kdotz.jsondemo;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -52,6 +53,14 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
             JSONObject jsonObject = new JSONObject(result);
             String weatherInfo = jsonObject.getString("weather");
             Log.i("Weather content: ", weatherInfo);
+            JSONArray arr = new JSONArray(weatherInfo);
+
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject jsonPart = arr.getJSONObject(i);
+                Log.i("main", jsonPart.getString("main"));
+                Log.i("description", jsonPart.getString("description"));
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
